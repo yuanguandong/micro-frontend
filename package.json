@@ -1,0 +1,6 @@
+{
+  "name": "scripts",
+  "scripts": {
+    "start":"concurrently \"cd app1 && npm run start\" \" cd app2 && npm run start\""
+  }
+}
