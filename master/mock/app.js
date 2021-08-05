@@ -17,9 +17,14 @@ export default {
       },
     },
     {
-      name: 'super',
-      entry: 'http://localhost:60004/super',
-      to: '/super/login',
+      name: 'iproject',
+      entry: 'http://localhost:60004/iproject',
+      to: '/iproject/',
+    },
+    {
+      name: 'login',
+      entry: 'http://localhost:50000/login',
+      to: '/login/login',
     },
   ],
 };

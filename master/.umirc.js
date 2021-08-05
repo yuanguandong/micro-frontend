@@ -53,6 +53,16 @@ export default {
           },
         },
         {
+          path: "/iproject",
+          microApp: "iproject",
+          settings: {
+            singular: false,
+          },
+          microAppProps: {
+            autoSetLoading: true
+          },
+        },
+        {
           path: "/",
           component: "./index.js",
         },

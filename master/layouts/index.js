@@ -1,7 +1,8 @@
 import { Breadcrumb, Button, Layout, Menu } from "antd";
 import { connect } from "dva";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useModel } from "umi";
+import Login from '../pages/login';
 import style from "./style.less";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -24,11 +25,13 @@ const renderBreadCrumb = (pathname) => {
 const MainLayout = (props) => {
   const { location, children, base, dispatch } = props;
   const { name, apps } = base;
-
+  
   const { globalState = {}, setQiankunGlobalState } =
     useModel("@@qiankunStateForSlave") || {};
   const { logo = "" } = globalState;
   const selectKey = "/" + location.pathname.split("/")[1];
+
+  const [loginVisible,setLoginVisible] = useState(false)
 
   useEffect(() => {
     dispatch({
@@ -37,36 +40,49 @@ const MainLayout = (props) => {
   }, []);
 
   return (
-    // <ConfigProvider prefixCls="gantmaster">
+    <>
     <Layout className={style.layout}>
-      <Header>
+      <Header style={{ height: 40, padding: "0 0px", display: "flex" }}>
         <div className={style.logo}>{logo}</div>
-
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["home"]}
-          selectedKeys={[selectKey]}
-          style={{ lineHeight: "64px" }}
+        <div style={{ flex: 1 }}>
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={["home"]}
+            selectedKeys={[selectKey]}
+            style={{ lineHeight: "40px" }}
+          >
+            <Menu.Item key="/">
+              <Link to="/">Home</Link>
+            </Menu.Item>
+            {apps.map((app, index) => {
+              // if (index === 2) {
+              //   return (
+              //     <Menu.Item key={app.to}>
+              //       <Link to="/app3/123">{app.name}</Link>
+              //     </Menu.Item>
+              //   );
+              // }
+              return (
+                <Menu.Item key={app.to}>
+                  <Link to={app.to}>{app.name}</Link>
+                </Menu.Item>
+              );
+            })}
+          </Menu>
+        </div>
+        <div
+          style={{
+            color: "#fff",
+            textAlign: "center",
+            lineHeight: '40px',
+            padding: "0 20px",
+            cursor:'pointer'
+          }}
+          onClick={()=>{setLoginVisible(true)}}
         >
-          <Menu.Item key="/">
-            <Link to="/">Home</Link>
-          </Menu.Item>
-          {apps.map((app, index) => {
-            // if (index === 2) {
-            //   return (
-            //     <Menu.Item key={app.to}>
-            //       <Link to="/app3/123">{app.name}</Link>
-            //     </Menu.Item>
-            //   );
-            // }
-            return (
-              <Menu.Item key={app.to}>
-                <Link to={app.to}>{app.name}</Link>
-              </Menu.Item>
-            );
-          })}
-        </Menu>
+          登录
+        </div>
       </Header>
       <Layout>
         <Sider width={200} style={{ background: "#fff" }}>
@@ -121,7 +137,8 @@ const MainLayout = (props) => {
         </Layout>
       </Layout>
     </Layout>
-    // </ConfigProvider>
+    <Login visible={loginVisible} setLoginVisible={setLoginVisible}/>
+    </>
   );
 };
 
