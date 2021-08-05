@@ -12,10 +12,10 @@ export default {
     //   target: "http://10.226.108.75:32580",
     //   changeOrigin: true,
     // },
-    "/fwSecurity": {
-      target: "http://10.226.108.75:32580",
-      changeOrigin: true,
-    },
+    // "/fwSecurity": {
+    //   target: "http://10.226.108.75:32580",
+    //   changeOrigin: true,
+    // },
     // "/fwWorkflow": {
     //   target: "http://10.226.108.75:32580",
     //   changeOrigin: true,
@@ -25,9 +25,9 @@ export default {
   dva: {},
   qiankun: {
     master: {
-      sandbox: {
-        experimentalStyleIsolation: true,
-      },
+      // sandbox: {
+      //   experimentalStyleIsolation: true,
+      // },
     },
   },
   routes: [

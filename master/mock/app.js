@@ -18,7 +18,7 @@ export default {
     },
     {
       name: 'super',
-      entry: 'http://localhost:19090/login',
+      entry: 'http://localhost:60004/super',
       to: '/super/login',
     },
   ],

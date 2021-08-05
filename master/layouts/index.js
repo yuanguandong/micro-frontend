@@ -3,8 +3,8 @@ import { connect } from "dva";
 import React, { useEffect } from "react";
 import { Link, useModel } from "umi";
 import style from "./style.less";
-
-const { Header, Content, Footer } = Layout;
+const { SubMenu } = Menu;
+const { Header, Content, Footer, Sider } = Layout;
 
 const renderBreadCrumb = (pathname) => {
   let arr = pathname.split("/").slice(1);
@@ -38,55 +38,89 @@ const MainLayout = (props) => {
 
   return (
     // <ConfigProvider prefixCls="gantmaster">
-      <Layout className={style.layout}>
-        <Header>
-          <div className={style.logo}>{logo}</div>
+    <Layout className={style.layout}>
+      <Header>
+        <div className={style.logo}>{logo}</div>
 
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["home"]}
+          selectedKeys={[selectKey]}
+          style={{ lineHeight: "64px" }}
+        >
+          <Menu.Item key="/">
+            <Link to="/">Home</Link>
+          </Menu.Item>
+          {apps.map((app, index) => {
+            // if (index === 2) {
+            //   return (
+            //     <Menu.Item key={app.to}>
+            //       <Link to="/app3/123">{app.name}</Link>
+            //     </Menu.Item>
+            //   );
+            // }
+            return (
+              <Menu.Item key={app.to}>
+                <Link to={app.to}>{app.name}</Link>
+              </Menu.Item>
+            );
+          })}
+        </Menu>
+      </Header>
+      <Layout>
+        <Sider width={200} style={{ background: "#fff" }}>
           <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["home"]}
-            selectedKeys={[selectKey]}
-            style={{ lineHeight: "64px" }}
+            mode="inline"
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            style={{ height: "100%", borderRight: 0 }}
           >
-            <Menu.Item key="/">
-              <Link to="/">Home</Link>
-            </Menu.Item>
-            {apps.map((app, index) => {
-              // if (index === 2) {
-              //   return (
-              //     <Menu.Item key={app.to}>
-              //       <Link to="/app3/123">{app.name}</Link>
-              //     </Menu.Item>
-              //   );
-              // }
-              return (
-                <Menu.Item key={app.to}>
-                  <Link to={app.to}>{app.name}</Link>
-                </Menu.Item>
-              );
-            })}
+            <SubMenu key="sub1" title={<span>subnav 1</span>}>
+              <Menu.Item key="1">option1</Menu.Item>
+              <Menu.Item key="2">option2</Menu.Item>
+              <Menu.Item key="3">option3</Menu.Item>
+              <Menu.Item key="4">option4</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" title={<span>subnav 2</span>}>
+              <Menu.Item key="5">option5</Menu.Item>
+              <Menu.Item key="6">option6</Menu.Item>
+              <Menu.Item key="7">option7</Menu.Item>
+              <Menu.Item key="8">option8</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub3" title={<span>subnav 3</span>}>
+              <Menu.Item key="9">option9</Menu.Item>
+              <Menu.Item key="10">option10</Menu.Item>
+              <Menu.Item key="11">option11</Menu.Item>
+              <Menu.Item key="12">option12</Menu.Item>
+            </SubMenu>
           </Menu>
-        </Header>
-        <Content className={style.content}>
-          <div style={{ display: "flex" }}>
-            <div style={{ flex: 1 }}>{renderBreadCrumb(location.pathname)}</div>
-            <Button
-              style={{ margin: 10 }}
-              key={1}
-              onClick={() =>
-                setQiankunGlobalState({
-                  ...globalState,
-                  logo: logo === "super" ? "一汽大众" : "super",
-                })
-              }
-            >
-              修改全局logo
-            </Button>
-          </div>
-          {children}
-        </Content>
+        </Sider>
+
+        <Layout style={{ padding: "0 10px 10px" }}>
+          <Content className={style.content}>
+            <div style={{ display: "flex" }}>
+              <div style={{ flex: 1 }}>
+                {renderBreadCrumb(location.pathname)}
+              </div>
+              <Button
+                style={{ margin: 10 }}
+                key={1}
+                onClick={() =>
+                  setQiankunGlobalState({
+                    ...globalState,
+                    logo: logo === "super" ? "一汽大众" : "super",
+                  })
+                }
+              >
+                修改全局logo
+              </Button>
+            </div>
+            {children}
+          </Content>
+        </Layout>
       </Layout>
+    </Layout>
     // </ConfigProvider>
   );
 };

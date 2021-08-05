@@ -33,7 +33,6 @@ export default function () {
           <MicroApp app2Name={app2Name} name="app2" />
         </Col>
       </Row>
-      ,
     </div>
   );
 }
